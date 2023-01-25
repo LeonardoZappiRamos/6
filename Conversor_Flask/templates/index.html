@@ -14,17 +14,16 @@
     </header>
     <div class="d-flex flex-column flex-grow-1 justify-content-center align-items-center">
       <h1 class="display-3 mb-5">Conversor de Moedas</h1>
-      <form action="POST">
+      <form method="post">
         <div class="row g-3 align-items-center mb-3">
           <div class="col-auto">
             <label for="inputDe" class="col-form-label">De: </label>
           </div>
           <div class="col-auto">
-            <select class="form-select" aria-label="Selecione o Tipo">
-              <option selected>R$ - Real</option>
-              <option value="1">U$ - Dolar</option>
-              <option value="2">C$ - Dolar Canadence</option>
-              <option value="3">JP&#165; - Iene</option>
+            <select class="form-select" name="de" aria-label="Selecione o Tipo">
+              {% for child in currency %}
+                <option value="{{ child.tag }}">{{ child.tag }} - {{child.text}}</option>
+              {% endfor %}
             </select>
           </div>
 
@@ -32,17 +31,23 @@
             <label for="inputPara" class="col-form-label">Para: </label>
           </div>
           <div class="col-auto">
-            <select class="form-select" aria-label="Selecione o Tipo">
-              <option selected>R$ - Real</option>
-              <option value="1">U$ - Dolar</option>
-              <option value="2">C$ - Dolar Canadence</option>
-              <option value="3">JP&#165; - Iene</option>
+            <select class="form-select" id="para" name="para" aria-label="Selecione o Tipo">
+              {% for child in currency %}
+                <option value="{{ child.tag }}">{{ child.tag }} - {{child.text}}</option>
+              {% endfor %}
             </select>
           </div>
         </div>
 
-        <div class="row mb-3 align-items-center">
-          <input type="text" class="form-control" id="inputDe" aria-describedby="deHelp">
+        <div class="row mb-3 g3 align-items-center">
+          <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input type="text" class="form-control text-center" id="valor" name="valor" aria-describedby="deHelp">
+          </div>
+          <div class="input-group mb-3">
+            <span class="input-group-text">$</span>
+            <input type="text" readonly class="form-control text-center" id="staticresult" value="{{ moeda }}" aria-label="Amount (to the nearest dollar)">
+          </div>
         </div>
         <div class="row g-3 align-items-center">
           <button type="submit" class="btn btn-secondary mb-3">Converter</button>
