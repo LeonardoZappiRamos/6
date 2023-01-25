@@ -22,7 +22,7 @@ def index():
     return render_template('index.html', error= error, moeda= moeda, currency= currency)
 
 def convert_coin(de, para, valor):
-    url = "https://economia.awesomeapi.com.br/BRL-USD/1"
+    url = f"https://economia.awesomeapi.com.br/{de}-{para}/{valor}"
 
     response = requests.request("GET", url)
 
