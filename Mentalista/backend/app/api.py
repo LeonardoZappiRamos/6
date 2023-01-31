@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordBearer
+
+
 from . import schemas
 
 app = FastAPI()
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 origins = [
     "http://localhost:3000",
@@ -23,20 +22,18 @@ app.add_middleware(
 questions = [
     schemas.Quiz(
         title="Qual é a capital do Brasil?", 
-        options=[
-            "Belo Horizonte", "Rio de Janeiro", "São Paulo", "Brasília"
-        ],
+        options=[ "Belo Horizonte", "Rio de Janeiro", "São Paulo", "Brasília" ],
         answer=3
         ),
     schemas.Quiz(
         title="Qual é a cor do cavalo branco de Napoleão?", 
-        options=[
-            "Branco", "Preto", "Marrom", "Cinza"
-        ],
+        options=[ "Branco", "Preto", "Marrom", "Cinza" ],
         answer=3
         ),
     # Adicionar mais perguntas aqui
 ]
+
+fake_user = schemas.User(email='joao.bobo@bobo.com', password='123456', username='joao.bobo', fullname='joao bobo da silva')
 
 @app.get("/")
 def read_root():
